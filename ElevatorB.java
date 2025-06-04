@@ -8,6 +8,7 @@ public class ElevatorB extends Elevator
     public String displayStatus() {
         String status = "Elevator B --------------------------";
         status += "\n Floor range: Without pass(1/7) or With pass(0 - 8)";
+        status += "\n Location: Northwest";
         if (inUse) {
             status += "\n Status: Currently in use";
             status += "\n On line: " + waitingLine; // shows the amount of people waiting on line
