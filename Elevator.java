@@ -7,6 +7,7 @@ public class Elevator
     protected int waitingLine;
     protected int waitTime; // used to determine the approximate wait time but dividing waitingLine into increments of 20 people
     private boolean elevatorPass;
+    private int userSide; // will be instantiated in the main class through the changeSide method
 
     public Elevator(int peopleInside, boolean inUse, int additionalWeight, int waitingLine) 
     {
@@ -47,11 +48,15 @@ public class Elevator
         return false;
     }
 
+    public void changeSide(int userSide) {
+        this.userSide = userSide; 
+    }
 
 
 
-    public String displayStatus(String elevatorName) {
-        String status = "Elevator " + elevatorName + "--------------------------";
+
+    public String displayStatus() {
+        String status = "Elevator " + "test" + "--------------------------";
         status += "\n Floor range: 1 - 7 ";
         if (inUse) {
             status += "\n Status: Currently in use";
@@ -63,6 +68,41 @@ public class Elevator
         status += "\n ================================";
         return status;
     }
+
+
+
+    public int locationPenalty(int userSide, int elevatorSide) {
+    if (userSide == elevatorSide) return 0;
+    
+    // adjacent 
+    if ((userSide == 2) && (elevatorSide == 6) || (userSide == 2) && (elevatorSide == 1) ||
+        (userSide == 6) && (elevatorSide == 2) || (userSide == 6) && (elevatorSide == 4) || (userSide == 6) && (elevatorSide == 5) ||
+        (userSide == 4) && (elevatorSide == 6) || (userSide == 4) && (elevatorSide == 3) || 
+        (userSide == 3) && (elevatorSide == 4) || (userSide == 3) && (elevatorSide == 5) ||
+        (userSide == 5) && (elevatorSide == 6) || (userSide == 5) && (elevatorSide == 3) || (userSide == 5) && (elevatorSide == 1) ||
+        (userSide == 1) && (elevatorSide == 5) || (userSide == 1) && (elevatorSide == 2)) {
+            return 8; 
+    }
+
+    // near adjacent/diagonal
+    if ((userSide == 2) && (elevatorSide == 4) || (userSide == 2) && (elevatorSide == 5) ||
+        (userSide == 6) && (elevatorSide == 3) || (userSide == 6) && (elevatorSide == 1) ||
+        (userSide == 4) && (elevatorSide == 2) || (userSide == 4) && (elevatorSide == 5) ||
+        (userSide == 3) && (elevatorSide == 1) || (userSide == 3) && (elevatorSide == 6) ||
+        (userSide == 5) && (elevatorSide == 4) || (userSide == 5) && (elevatorSide == 2) ||
+        (userSide == 1) && (elevatorSide == 3) || (userSide == 1) && (elevatorSide == 6)) {
+            return 12;
+    }
+
+    // opposite
+    if ((userSide == 2) && (elevatorSide == 3) ||
+        (userSide == 4) && (elevatorSide == 1) ||
+        (userSide == 3) && (elevatorSide == 2) ||
+        (userSide == 1) && (elevatorSide == 4)) {
+            return 18;
+    }
+    return 0; // placeholder
+}
 
     
 }
